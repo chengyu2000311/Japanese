@@ -27,7 +27,7 @@ with open("./resource/cur_progress.txt", "r") as f:
     module, minute, second =  (int(x) for x in progress.split(","))
     cur_progress = sum(minute * 60 + second for minute, second in lessons[:module]) + minute + second
     print(f"----------- Current Progress -----------")
-    print(f"In Seconds: {cur_progress}/{lessons_len}")
-    print(f"In Hours: {convert_second_format(cur_progress)}/{convert_second_format(lessons_len)}")
-    print(f"Completed: {cur_progress/lessons_len}% ")
-    print(f"Left: {1-cur_progress/lessons_len}")
+    print(f"In Seconds: {cur_progress} / {lessons_len}")
+    print(f"In Hours: {convert_second_format(cur_progress)} / {convert_second_format(lessons_len)}")
+    print(f"Completed: {cur_progress/lessons_len:.3f}")
+    print(f"Left: {1-cur_progress/lessons_len:.3f}")
