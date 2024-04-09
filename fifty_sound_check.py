@@ -96,7 +96,10 @@ def main():
         columns = shutil.get_terminal_size().columns
         # TO display hint if answer is wrong
         sound, hiragana, katakana, hint1, hint2, options = next_question(kana_d, list_kana_d)
-        print(hiragana.center(columns))
+        if count_total % 2 == 0:
+            print(hiragana.center(columns))
+        else:
+            print(katakana.center(columns))
         option = "Options: " + ', '.join([f"{i+1}: {e}" for i, e in enumerate(options)])
         print(option.center(columns))
         ans = input("Enter your answer: ".center(columns).rstrip() + " ")
