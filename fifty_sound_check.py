@@ -107,7 +107,7 @@ def main():
         columns = shutil.get_terminal_size().columns
         # TO display hint if answer is wrong
         sound, hiragana, katakana, hint1, hint2, options = next_question(kana_d)
-        if count_total % 2 == 0:
+        if count_total % 2 == 100:
             print(hiragana.center(columns))
         else:
             print(katakana.center(columns))
