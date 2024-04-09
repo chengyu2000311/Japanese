@@ -47,11 +47,12 @@ kana_d = {
     'n': ['ん', 'ン',  '(n)人(ん)总是需要一点提(ン)点', '人总是需要一点提点']
 }
 
-from random import choice, choices, shuffle
-list_kana_d = list(kana_d)
+from random import choice, sample, shuffle
+choice_kana_d = list(kana_d)
 
 import shutil
 import time
+import argparse
 
 def logging(record):
     with open("./resource/fifty_practice_record.txt", "a") as f:
@@ -66,7 +67,7 @@ def report(this_record, columns):
             ratio, num = line[line.find(idx) + len(idx):].split(' -- ')
             right, total = [int(x) for x in num.split(" out of ")]
             ratio = float(ratio)
-            records.append((ratio, right, total, line))
+            records.append((ratio, total, right, line))
 
     # TODO can filter more based on abs number 
     # TODO count which word has the most correction character
@@ -75,27 +76,37 @@ def report(this_record, columns):
     print(f"This try: [{time.ctime()}]: {this_record}".center(columns))
 
 
-def next_question(kana_d: dict, list_kana_d: list):
+def next_question(kana_d: dict):
+    global choice_kana_d
+    local_choice_kana_d = list(choice_kana_d)
     sound, [hiragana, katakana, hint1, hint2] = choice(list(kana_d.items()))
-    lista = list(list_kana_d)
     # TODO make sure it is unique
-    lista.remove(sound)
+    local_choice_kana_d.remove(sound)
     options = [sound]
     for _ in range(4):
-        ele = choice(lista)
+        ele = choice(local_choice_kana_d)
         options.append(ele)
-        lista.remove(ele)
+        local_choice_kana_d.remove(ele)
     shuffle(options)
     return sound, hiragana, katakana, hint1, hint2, options
 
 def main():
+    global kana_d
     count_right = 0
     count_total = 0
+    parser = argparse.ArgumentParser(
+                    prog='fifty sound check',
+                    description='Check memory of 50 sounds in Japanese',
+                    epilog='----------------------------------')
+    parser.add_argument('-n', '--number', default=len(kana_d))
+    args = parser.parse_args()
+    kana_d = sample(sorted(kana_d.items()), int(args.number))
+    kana_d = {x: y for x, y in kana_d}
     while True:
         count_total += 1
         columns = shutil.get_terminal_size().columns
         # TO display hint if answer is wrong
-        sound, hiragana, katakana, hint1, hint2, options = next_question(kana_d, list_kana_d)
+        sound, hiragana, katakana, hint1, hint2, options = next_question(kana_d)
         if count_total % 2 == 0:
             print(hiragana.center(columns))
         else:
