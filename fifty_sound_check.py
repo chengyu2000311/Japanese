@@ -134,6 +134,7 @@ def main():
         # bump out the known character
         if ans == 'b':
             kana_d.pop(sound)
+            count_right += 1
             print(f"bumping out {hiragana}, {katakana}, {hint1}, {hint2}".strip().center(columns) + '\n')
             continue
 
