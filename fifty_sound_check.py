@@ -105,6 +105,7 @@ def main():
     columns = shutil.get_terminal_size().columns
     while True:
         if not kana_d:
+            record = f"Correct Ratio: {count_right / count_total:.2f} -- {count_right} out of {count_total}"
             print(record.center(columns))
             print("Logging records.....".center(columns))
             logging(record)
