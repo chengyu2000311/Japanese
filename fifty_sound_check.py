@@ -113,7 +113,7 @@ def main():
             print(katakana.center(columns))
         option = "Options: " + ', '.join([f"{i+1}: {e}" for i, e in enumerate(options)])
         print(option.center(columns))
-        ans = input("Enter your answer: ".center(columns).rstrip() + " ")
+        ans = input("Enter your answer:".center(columns).rstrip() + " ")
         if ans == 'q':
             count_total -= 1
             record = f"Correct Ratio: {count_right / count_total:.2f} -- {count_right} out of {count_total}"
@@ -122,6 +122,11 @@ def main():
             logging(record)
             report(record, columns)
             break
+        # bump out the known character
+        if ans == 'b':
+            kana_d.pop(sound)
+            print(f"bump out {sound}".center(columns) + '\n')
+            continue
 
 
         ans = options[int(ans) - 1]
