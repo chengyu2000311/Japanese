@@ -102,6 +102,7 @@ def main():
     args = parser.parse_args()
     kana_d = sample(sorted(kana_d.items()), int(args.number))
     kana_d = {x: y for x, y in kana_d}
+    columns = shutil.get_terminal_size().columns
     while True:
         if not kana_d:
             print("All cleared!".center(columns))
