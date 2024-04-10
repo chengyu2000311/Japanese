@@ -128,15 +128,18 @@ def main():
             print(f"bump out {sound}".center(columns) + '\n')
             continue
 
-
-        ans = options[int(ans) - 1]
-        if ans == sound:
-            print("Correct!".center(columns) + '\n')
-            count_right += 1
-        else:
-            print(f"Wrong.. The answer is {sound}".center(columns) + '\n')
-        print(f"{hiragana}, {katakana}, {hint1}, {hint2}".strip().center(columns))
-        print('-' * columns)
+        try:
+            ans = options[int(ans) - 1]
+            if ans == sound:
+                print("Correct!".center(columns) + '\n')
+                count_right += 1
+            else:
+                print(f"Wrong.. The answer is {sound}".center(columns) + '\n')
+            print(f"{hiragana}, {katakana}, {hint1}, {hint2}".strip().center(columns))
+            print('-' * columns)
+        except ValueError:
+            print("Typo".center(columns))
+            continue
 
 if __name__ == '__main__':
     main()
