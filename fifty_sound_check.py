@@ -105,7 +105,10 @@ def main():
     columns = shutil.get_terminal_size().columns
     while True:
         if not kana_d:
-            print("All cleared!".center(columns))
+            print(record.center(columns))
+            print("Logging records.....".center(columns))
+            logging(record)
+            report(record, columns)
             break
         print(f"{len(kana_d)} characters left".center(columns))
         count_total += 1
