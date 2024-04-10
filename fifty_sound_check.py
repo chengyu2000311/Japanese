@@ -106,6 +106,7 @@ def main():
         if not kana_d:
             print("All cleared!".center(columns))
             break
+        print(f"{len(kana_d)} characters left".center(columns))
         count_total += 1
         columns = shutil.get_terminal_size().columns
         # TO display hint if answer is wrong
@@ -128,7 +129,7 @@ def main():
         # bump out the known character
         if ans == 'b':
             kana_d.pop(sound)
-            print(f"bump out {sound}".center(columns) + '\n')
+            print(f"bumping out {hiragana}, {katakana}, {hint1}, {hint2}".strip().center(columns) + '\n')
             continue
 
         try:
